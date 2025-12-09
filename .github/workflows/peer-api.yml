@@ -3,25 +3,29 @@ name: Ensure API Peer Dependency
 on:
   push:
     branches:
-      - main
+    - main
+    - master
   pull_request:
   merge_group:
 
 jobs:
   peer-api-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     container:
       image: node:20
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v3
 
-      - name: Install lerna
-        run: npm install -g lerna
+    - name: Install lerna
+      run: npm install -g lerna
 
-      - name: Install semver
-        run: npm install semver
+    - name: Install semver
+      run: npm install semver
 
-      - name: Check API dependency semantics
-        working-directory: packages
-        run: lerna run peer-api-check
+    - name: Check API dependency semantics
+      working-directory: packages
+      run: lerna run peer-api-check
+env:
+  NPM_CONFIG_REGISTRY: https://time-machines-npm.sealsecurity.io/
+  NPM_CONFIG_//time-machines-npm.sealsecurity.io/:_authToken: '2023-07-06T11:27:10.524000Z'
